@@ -1,0 +1,97 @@
+--- START OF FILE positional_params_examples.sql ---
+-- 函數功能：使用位置參數風格的SQL查詢示例
+-- 參數:
+--   無
+-- 返回值:
+--   無
+-- 使用位置參數風格的SQL查詢示例
+
+-- 1. 查詢所有員工
+-- 從: SELECT * FROM get_all_staff(p_business_id => 'c9cec2a4-bfaa-45ce-a95a-85029ac8ab98', p_include_inactive => true);
+-- 改為:
+SELECT * FROM get_all_staff(p_business_id => 'c9cec2a4-bfaa-45ce-a95a-85029ac8ab98', p_include_inactive => true);
+
+-- 2. 根據名稱查詢員工
+-- 從: SELECT staff_id FROM get_all_staff(p_business_id => 'c9cec2a4-bfaa-45ce-a95a-85029ac8ab98', p_include_inactive => true) WHERE name = '蕭家弘';
+-- 改為:
+SELECT id AS staff_id 
+FROM n8n_booking_users 
+WHERE business_id = 'c9cec2a4-bfaa-45ce-a95a-85029ac8ab98' 
+  AND role = 'staff' 
+  AND name = '蕭家弘';
+
+-- 3. 分配服務給員工
+-- 從: SELECT assign_service_to_staff(p_staff_id => '...', p_service_name => '皮革工藝', p_business_id => 'c9cec2a4-bfaa-45ce-a95a-85029ac8ab98', p_is_primary => true, p_proficiency_level => 5);
+-- 改為:
+SELECT assign_service_to_staff(
+    p_staff_id => (SELECT id FROM n8n_booking_users WHERE name = '蕭家弘' AND role = 'staff' AND business_id = 'c9cec2a4-bfaa-45ce-a95a-85029ac8ab98'),
+    p_service_name => '皮革工藝',
+    p_business_id => 'c9cec2a4-bfaa-45ce-a95a-85029ac8ab98',
+    p_is_primary => true,
+    p_proficiency_level => 5
+);
+
+-- 4. 查詢員工可提供的服務
+-- 從: SELECT * FROM get_staff_services(p_staff_id => '...');
+-- 改為:
+SELECT * FROM get_staff_services(
+    p_staff_id => (SELECT id FROM n8n_booking_users WHERE name = '測試_張花藝' AND role = 'staff' AND business_id = 'c9cec2a4-bfaa-45ce-a95a-85029ac8ab98')
+);
+
+-- 5. 查詢可提供特定服務的員工
+-- 從: SELECT * FROM get_staff_by_service(p_business_id => 'c9cec2a4-bfaa-45ce-a95a-85029ac8ab98', p_service_name => '測試_精緻花藝體驗');
+-- 改為:
+SELECT * FROM get_staff_by_service(p_business_id => 'c9cec2a4-bfaa-45ce-a95a-85029ac8ab98', p_service_name => '測試_精緻花藝體驗');
+
+-- 6. 設定員工可用時間
+-- 從: SELECT set_staff_availability(p_staff_id => '...', p_business_id => 'c9cec2a4-bfaa-45ce-a95a-85029ac8ab98', p_start_time => '09:00:00', p_end_time => '12:00:00', p_is_recurring => true, p_day_of_week => 1, p_availability_type => 'available');
+-- 改為:
+SELECT set_staff_availability(
+    p_staff_id => (SELECT id FROM n8n_booking_users WHERE name = '測試_張花藝' AND role = 'staff' AND business_id = 'c9cec2a4-bfaa-45ce-a95a-85029ac8ab98'),
+    p_business_id => 'c9cec2a4-bfaa-45ce-a95a-85029ac8ab98',
+    p_start_time => '09:00:00',
+    p_end_time => '12:00:00',
+    p_is_recurring => true,
+    p_day_of_week => 1,
+    p_availability_type => 'available'
+);
+
+-- 7. 設定特定日期不可用
+-- 從: SELECT set_staff_availability(p_staff_id => '...', p_business_id => 'c9cec2a4-bfaa-45ce-a95a-85029ac8ab98', p_start_time => '00:00:00', p_end_time => '23:59:59', p_is_recurring => false, p_specific_date => '2025-03-15', p_availability_type => 'unavailable');
+-- 改為:
+SELECT set_staff_availability(
+    p_staff_id => (SELECT id FROM n8n_booking_users WHERE name = '測試_張花藝' AND role = 'staff' AND business_id = 'c9cec2a4-bfaa-45ce-a95a-85029ac8ab98'),
+    p_business_id => 'c9cec2a4-bfaa-45ce-a95a-85029ac8ab98',
+    p_start_time => '00:00:00',
+    p_end_time => '23:59:59',
+    p_is_recurring => false,
+    p_specific_date => '2025-03-15',
+    p_availability_type => 'unavailable'
+);
+
+-- 8. 查詢員工在特定日期的可用時間
+-- 從: SELECT * FROM get_staff_availability_by_date(p_staff_id => '...', p_date => '2025-03-15');
+-- 改為:
+SELECT * FROM get_staff_availability_by_date(
+    p_staff_id => (SELECT id FROM n8n_booking_users WHERE name = '測試_張花藝' AND role = 'staff' AND business_id = 'c9cec2a4-bfaa-45ce-a95a-85029ac8ab98'),
+    p_date => '2025-03-15'
+);
+
+-- 9. 查詢員工的預約排程
+-- 從: SELECT * FROM get_staff_schedule(p_staff_id => '...', p_start_date => '2025-03-01', p_end_date => '2025-03-31');
+-- 改為:
+SELECT * FROM get_staff_schedule(
+    p_staff_id => (SELECT id FROM n8n_booking_users WHERE name = '測試_王多才' AND role = 'staff' AND business_id = 'c9cec2a4-bfaa-45ce-a95a-85029ac8ab98'),
+    p_start_date => '2025-03-01',
+    p_end_date => '2025-03-31'
+);
+
+-- 10. 查詢特定服務在特定日期的可用時段及可用員工
+-- 從: SELECT * FROM get_period_availability_with_staff(p_business_id => 'c9cec2a4-bfaa-45ce-a95a-85029ac8ab98', p_service_name => '花藝體驗課程', p_booking_dates => ARRAY['2025-03-08', '2025-03-10']::date[]);
+-- 改為:
+SELECT * FROM get_period_availability_with_staff(
+    p_business_id => 'c9cec2a4-bfaa-45ce-a95a-85029ac8ab98',
+    p_service_name => '測試_精緻花藝體驗',
+    p_booking_dates => ARRAY['2025-03-08', '2025-03-10']::date[]
+);
+--- END OF FILE positional_params_examples.sql ---

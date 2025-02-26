@@ -1,0 +1,217 @@
+-- 基本測試查詢，不使用自定義函數
+
+-- 1. 查詢所有員工
+SELECT 
+    id, 
+    name, 
+    email, 
+    phone, 
+    line_user_id, 
+    is_active, 
+    notes, 
+    created_at
+FROM n8n_booking_users
+WHERE business_id = 'c9cec2a4-bfaa-45ce-a95a-85029ac8ab98'
+  AND role = 'staff'
+ORDER BY name;
+
+-- 2. 查詢特定員工 (張花藝)
+SELECT * FROM n8n_booking_users 
+WHERE business_id = 'c9cec2a4-bfaa-45ce-a95a-85029ac8ab98'
+  AND role = 'staff'
+  AND name LIKE '測試_張花藝';
+
+-- 3. 獲取張花藝的ID
+SELECT id AS zhang_id FROM n8n_booking_users 
+WHERE name = '測試_張花藝' 
+  AND business_id = 'c9cec2a4-bfaa-45ce-a95a-85029ac8ab98';
+
+-- 4. 查詢張花藝可提供的服務 (請將[張花藝ID]替換為上一步獲取的ID)
+-- 例如: SELECT * FROM n8n_booking_staff_services WHERE staff_id = 'a1b2c3d4-e5f6-7890-1234-567890abcdef';
+SELECT 
+    ss.staff_id,
+    s.name AS service_name,
+    s.description,
+    s.duration,
+    s.price,
+    ss.is_primary,
+    ss.proficiency_level
+FROM n8n_booking_staff_services ss
+JOIN n8n_booking_services s ON ss.service_id = s.id
+WHERE ss.staff_id = '[張花藝ID]';
+
+-- 5. 查詢可以教授花藝課程的員工
+SELECT 
+    u.id AS staff_id,
+    u.name AS staff_name,
+    ss.is_primary,
+    ss.proficiency_level
+FROM n8n_booking_users u
+JOIN n8n_booking_staff_services ss ON u.id = ss.staff_id
+JOIN n8n_booking_services s ON ss.service_id = s.id
+WHERE s.business_id = 'c9cec2a4-bfaa-45ce-a95a-85029ac8ab98'
+  AND u.role = 'staff'
+  AND u.is_active = true
+  AND s.name LIKE '%花藝%'
+ORDER BY ss.is_primary DESC, ss.proficiency_level DESC, u.name;
+
+-- 6. 查詢李蠟燭的可用時間設定
+SELECT 
+    sa.id,
+    sa.staff_id,
+    sa.day_of_week,
+    sa.start_time,
+    sa.end_time,
+    sa.is_recurring,
+    sa.specific_date,
+    sa.availability_type
+FROM n8n_booking_staff_availability sa
+JOIN n8n_booking_users u ON sa.staff_id = u.id
+WHERE u.name = '測試_李蠟燭'
+  AND u.business_id = 'c9cec2a4-bfaa-45ce-a95a-85029ac8ab98';
+
+-- 7. 查詢所有員工下週一的可用性
+WITH next_monday AS (
+    SELECT current_date + (7 - EXTRACT(DOW FROM current_date))::integer % 7 + 1 AS date
+)
+SELECT 
+    u.name AS staff_name,
+    sa.day_of_week,
+    sa.start_time,
+    sa.end_time,
+    sa.availability_type
+FROM n8n_booking_users u
+JOIN n8n_booking_staff_availability sa ON u.id = sa.staff_id
+WHERE u.business_id = 'c9cec2a4-bfaa-45ce-a95a-85029ac8ab98'
+  AND u.role = 'staff'
+  AND u.is_active = true
+  AND (
+    (sa.is_recurring = true AND sa.day_of_week = EXTRACT(DOW FROM (SELECT date FROM next_monday)))
+    OR
+    (sa.is_recurring = false AND sa.specific_date = (SELECT date FROM next_monday))
+  )
+ORDER BY u.name, sa.start_time;
+
+-- 8. 查詢花藝課程在下週的可預約情況
+WITH next_week_dates AS (
+    SELECT 
+        generate_series(
+            current_date + (7 - EXTRACT(DOW FROM current_date))::integer % 7 + 1, -- 下週一
+            current_date + (7 - EXTRACT(DOW FROM current_date))::integer % 7 + 7, -- 下週日
+            interval '1 day'
+        )::date AS date
+),
+flower_service AS (
+    SELECT id 
+    FROM n8n_booking_services 
+    WHERE business_id = 'c9cec2a4-bfaa-45ce-a95a-85029ac8ab98'
+      AND name LIKE '%花藝%'
+      AND is_active = true
+    LIMIT 1
+)
+SELECT 
+    d.date AS booking_date,
+    p.name AS period_name,
+    p.start_time,
+    p.end_time,
+    (
+        SELECT array_agg(u.name)
+        FROM n8n_booking_users u
+        JOIN n8n_booking_staff_services ss ON u.id = ss.staff_id
+        WHERE ss.service_id = (SELECT id FROM flower_service)
+        AND u.is_active = true
+        AND EXISTS (
+            SELECT 1 FROM n8n_booking_staff_availability sa
+            WHERE sa.staff_id = u.id
+            AND sa.availability_type = 'available'
+            AND (
+                (sa.is_recurring = true AND sa.day_of_week = EXTRACT(DOW FROM d.date))
+                OR
+                (sa.is_recurring = false AND sa.specific_date = d.date)
+            )
+            AND sa.start_time <= p.start_time
+            AND sa.end_time >= p.end_time
+        )
+        AND NOT EXISTS (
+            SELECT 1 FROM n8n_booking_staff_availability sa
+            WHERE sa.staff_id = u.id
+            AND sa.availability_type = 'unavailable'
+            AND (
+                (sa.is_recurring = true AND sa.day_of_week = EXTRACT(DOW FROM d.date))
+                OR
+                (sa.is_recurring = false AND sa.specific_date = d.date)
+            )
+            AND (
+                (sa.start_time <= p.start_time AND sa.end_time >= p.start_time)
+                OR
+                (sa.start_time <= p.end_time AND sa.end_time >= p.end_time)
+                OR
+                (p.start_time <= sa.start_time AND p.end_time >= sa.end_time)
+            )
+        )
+    ) AS available_staff
+FROM next_week_dates d
+CROSS JOIN n8n_booking_time_periods p
+WHERE p.business_id = 'c9cec2a4-bfaa-45ce-a95a-85029ac8ab98'
+  AND p.is_active = true
+ORDER BY d.date, p.start_time;
+
+-- 9. 查詢員工的預約排程
+SELECT 
+    u.name AS staff_name,
+    b.booking_date,
+    b.booking_start_time,
+    b.booking_start_time + b.booking_duration AS booking_end_time,
+    s.name AS service_name,
+    b.customer_name,
+    b.customer_phone,
+    b.number_of_people,
+    b.status
+FROM n8n_booking_bookings b
+JOIN n8n_booking_users u ON b.staff_id = u.id
+JOIN n8n_booking_services s ON b.service_id = s.id
+WHERE b.business_id = 'c9cec2a4-bfaa-45ce-a95a-85029ac8ab98'
+  AND b.booking_date >= current_date
+  AND b.status = 'confirmed'
+ORDER BY u.name, b.booking_date, b.booking_start_time;
+
+-- 10. 按週匯總員工工作量
+SELECT 
+    u.name AS staff_name,
+    date_trunc('week', b.booking_date) AS booking_week,
+    COUNT(*) AS number_of_bookings,
+    SUM(b.number_of_people) AS total_customers,
+    SUM(EXTRACT(EPOCH FROM b.booking_duration) / 3600) AS total_hours
+FROM n8n_booking_bookings b
+JOIN n8n_booking_users u ON b.staff_id = u.id
+WHERE b.business_id = 'c9cec2a4-bfaa-45ce-a95a-85029ac8ab98'
+  AND b.status = 'confirmed'
+  AND b.booking_date BETWEEN current_date - interval '30 days' AND current_date + interval '30 days'
+GROUP BY u.name, date_trunc('week', b.booking_date)
+ORDER BY u.name, date_trunc('week', b.booking_date);
+
+-- 11. 查詢服務與員工的專業程度匹配
+SELECT 
+    s.name AS service_name, 
+    u.name AS staff_name, 
+    ss.proficiency_level,
+    ss.is_primary
+FROM n8n_booking_services s
+JOIN n8n_booking_staff_services ss ON s.id = ss.service_id
+JOIN n8n_booking_users u ON ss.staff_id = u.id
+WHERE s.business_id = 'c9cec2a4-bfaa-45ce-a95a-85029ac8ab98'
+  AND u.is_active = true
+ORDER BY s.name, ss.is_primary DESC, ss.proficiency_level DESC;
+
+-- 12. 查詢特定員工的特殊不可用日期
+SELECT 
+    u.name AS staff_name,
+    sa.specific_date,
+    sa.start_time,
+    sa.end_time
+FROM n8n_booking_staff_availability sa
+JOIN n8n_booking_users u ON sa.staff_id = u.id
+WHERE u.business_id = 'c9cec2a4-bfaa-45ce-a95a-85029ac8ab98'
+  AND sa.is_recurring = false
+  AND sa.availability_type = 'unavailable'
+ORDER BY u.name, sa.specific_date;

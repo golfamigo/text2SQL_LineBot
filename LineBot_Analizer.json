@@ -1,0 +1,155 @@
+{
+  "name": "LineBot Analizer",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -620,
+        -120
+      ],
+      "id": "c28142ec-0703-4913-b66c-e9e0e975fb34",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $now.setZone(`Asia/Taipei`) }}\n請提取客戶預約花藝體驗課程的日期和時間",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        -280,
+        -120
+      ],
+      "id": "f2586243-db8d-4aa0-a48a-bdc06a1fa697",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -380,
+        120
+      ],
+      "id": "74fa418e-1b79-4d80-bedb-78c3db392d16",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "OLxvDlcgMtQl97Rz",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolName": "lineBotData",
+        "toolDescription": "linebot中的對話紀錄",
+        "tableName": "n8n_vectors_vousaimer",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePGVector",
+      "typeVersion": 1,
+      "position": [
+        -60,
+        160
+      ],
+      "id": "878ec2c1-3e8a-4919-ab83-51bf6056fadb",
+      "name": "Postgres PGVector Store",
+      "credentials": {
+        "postgres": {
+          "id": "rirX6y2H8JSNpuki",
+          "name": "Supabasa Postgres"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        100,
+        320
+      ],
+      "id": "adb8fc70-4a97-4eb2-b0ea-7b303ff9f3b9",
+      "name": "Embeddings OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "OLxvDlcgMtQl97Rz",
+          "name": "OpenAi account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres PGVector Store": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Postgres PGVector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "e41eebf7-0052-4d0f-9aec-84025f71cb83",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "44d8cd01c3e296fac36e019b696666ef465263f58c21082d7172651215b897d2"
+  },
+  "id": "P6nKUuGWoco3xpXt",
+  "tags": []
+}
