@@ -18,9 +18,17 @@ jobs:
         with:
           version: latest
       
+      - name: Setup postgres connection details
+        run: |
+          echo "PGUSER=postgres.rgrnhvdainseuppeyqlm" >> $GITHUB_ENV
+          echo "PGHOST=aws-0-ap-southeast-1.pooler.supabase.com" >> $GITHUB_ENV
+          echo "PGPORT=6543" >> $GITHUB_ENV
+          echo "PGDATABASE=postgres" >> $GITHUB_ENV
+          echo "PGPASSWORD=${{ secrets.SUPABASE_DB_PASSWORD }}" >> $GITHUB_ENV
+      
       - name: Deploy migrations
         run: |
-          supabase link --db-url postgresql://postgres.rgrnhvdainseuppeyqlm:${{ secrets.SUPABASE_DB_PASSWORD }}@aws-0-ap-southeast-1.pooler.supabase.com:6543/postgres --project-ref ${{ secrets.SUPABASE_PROJECT_ID }} --debug
+          supabase link --project-ref ${{ secrets.SUPABASE_PROJECT_ID }} --debug
           supabase db push
         env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
