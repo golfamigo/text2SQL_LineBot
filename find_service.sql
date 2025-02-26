@@ -1,3 +1,5 @@
+DROP FUNCTION IF EXISTS find_service CASCADE;
+
 --- START OF FILE find_service.sql ---
 -- 函數功能：查找服務
 -- 參數:

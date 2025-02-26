@@ -19,6 +19,7 @@
 - Supabase
 - Line Messaging API
 - OpenAI API
+- n8n (工作流自动化)
 
 ## 安装指南
 
@@ -37,14 +38,38 @@ cp .env.example .env
 npm start
 ```
 
-## 数据库迁移
+## 工作流程与文件管理
 
-我们使用Supabase进行数据库管理，所有的迁移文件都存放在`supabase/migrations`目录中。
+### SQL函数修改流程
+
+1. 直接编辑根目录下的SQL文件
+2. 运行`node setup-migrations.js`自动生成时间戳格式的迁移文件
+3. 提交更改到Git仓库：`git add .`, `git commit -m "更新说明"`, `git push`
+4. GitHub Actions将自动生成迁移文件到`supabase/migrations`目录
+
+### 数据库迁移
+
+现在我们使用本地部署方式应用迁移：
 
 ```bash
-# 应用迁移
-supabase db push
+# 在Linux/Mac上
+bash deploy-local.sh
+
+# 在Windows上
+.\deploy-local.ps1
 ```
+
+这个脚本会提示您输入Supabase项目ID和数据库密码，然后尝试应用所有迁移。
+
+## 自动化与CI/CD
+
+- GitHub Actions: 自动生成迁移文件（不进行部署）
+- n8n工作流程: 存放在`n8n_workflows`目录中
+
+## 常见问题解决
+
+- UUID类型参数需使用`::uuid`进行显式类型转换
+- n8n错误通常由参数名称或类型不匹配导致
 
 ## 贡献指南
 

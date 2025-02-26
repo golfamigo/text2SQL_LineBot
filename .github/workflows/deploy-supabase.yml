@@ -1,34 +1,30 @@
-name: Deploy Migrations to Supabase
+name: Generate Migrations Only
 
 on:
   push:
     branches: [ master ]
     paths:
-      - 'supabase/migrations/**'
+      - '*.sql'
   workflow_dispatch: # 添加手動觸發功能
 
 jobs:
-  deploy:
+  generate_migrations:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       
-      - name: Setup Supabase CLI
-        uses: supabase/setup-cli@v1
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          version: latest
+          node-version: '16'
       
-      - name: Setup postgres connection details
-        run: |
-          echo "PGUSER=postgres.rgrnhvdainseuppeyqlm" >> $GITHUB_ENV
-          echo "PGHOST=aws-0-ap-southeast-1.pooler.supabase.com" >> $GITHUB_ENV
-          echo "PGPORT=6543" >> $GITHUB_ENV
-          echo "PGDATABASE=postgres" >> $GITHUB_ENV
-          echo "PGPASSWORD=${{ secrets.SUPABASE_DB_PASSWORD }}" >> $GITHUB_ENV
+      - name: Run setup-migrations.js script
+        run: node setup-migrations.js
       
-      - name: Deploy migrations
+      - name: Commit generated migrations
         run: |
-          supabase link --project-ref ${{ secrets.SUPABASE_PROJECT_ID }} --debug
-          supabase db push
-        env:
-          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add supabase/migrations/
+          git commit -m "Auto-generate migrations" || echo "No changes to commit"
+          git push
