@@ -1,7 +1,7 @@
 --- START OF FILE assign_service_to_staff.sql ---
 DROP FUNCTION IF EXISTS assign_service_to_staff CASCADE;
 
--- 函數功能：設置員工可提供的服務
+-- 函數功能：設置員工可提供的專業服務
 -- 參數:
 --   p_staff_id UUID: 員工 ID
 --   p_service_name TEXT: 服務名稱
