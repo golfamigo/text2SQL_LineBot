@@ -1,3 +1,5 @@
+DROP FUNCTION IF EXISTS update_business_booking_settings CASCADE;
+
 --- START OF FILE update_business_booking_settings.sql ---
 -- 函數功能：更新商家預約設定
 -- 參數:

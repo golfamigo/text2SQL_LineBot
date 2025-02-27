@@ -1,4 +1,4 @@
-DROP FUNCTION IF EXISTS create_service(uuid, text, text, integer, numeric, integer, interval, boolean);
+DROP FUNCTION IF EXISTS create_service CASCADE;
 
 --- START OF FILE create_service.sql ---
 CREATE OR REPLACE FUNCTION create_service(

@@ -1,3 +1,5 @@
+DROP FUNCTION IF EXISTS get_period_availability CASCADE;
+
 --- START OF FILE get_period_availability.sql ---
 -- 函數功能：獲取特定服務和時段在指定日期範圍內的可用性
 -- 參數:

@@ -1,7 +1,7 @@
 --- START OF FILE get_staff_schedule.sql ---
 -- 先刪除現有函數
 DROP FUNCTION IF EXISTS get_staff_schedule CASCADE;
--- 函數功能：獲取員工的預約排程
+-- 函數功能：獲取員工的預約排程。
 -- 參數:
 --   p_staff_id UUID: 員工 ID
 --   p_start_date DATE: 排程開始日期

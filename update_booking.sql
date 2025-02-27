@@ -1,6 +1,6 @@
 --- START OF FILE update_booking.sql ---
 -- 先刪除現有函數
-DROP FUNCTION IF EXISTS update_booking(uuid, date, text, uuid, integer, text, text);
+DROP FUNCTION IF EXISTS update_booking CASCADE;
 
 -- 函數功能：更新預約資訊
 -- 參數:

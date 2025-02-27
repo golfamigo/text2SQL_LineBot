@@ -1,6 +1,7 @@
 --- START OF FILE get_staff_services.sql ---
 -- 先刪除現有函數
-DROP FUNCTION IF EXISTS get_all_staff CASCADE;
+DROP FUNCTION IF EXISTS get_staff_services CASCADE;
+
 -- 函數功能：獲取員工可提供的服務
 -- 參數:
 --   p_staff_id UUID: 員工 ID

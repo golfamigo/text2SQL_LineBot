@@ -1,6 +1,6 @@
 --- START OF FILE get_period_availability_by_date.sql ---
 -- 先刪除現有函數
-DROP FUNCTION IF EXISTS get_period_availability_by_date(uuid, date[]);
+DROP FUNCTION IF EXISTS get_period_availability_by_date CASCADE;
 
 -- 函數功能：獲取多個日期在特定商家營業時段的可用性
 -- 參數:

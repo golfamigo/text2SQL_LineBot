@@ -1,0 +1,42 @@
+text2SQL_LineBot 專案指南
+專案概述
+這是一個使用 n8n 自動化平台和 Supabase 資料庫的 Line 機器人專案，用於將自然語言轉換為 SQL 查詢。專案使用 GitHub 進行版本控制，並透過 GitHub Actions 自動部署更新至 Supabase。
+工作目錄
+
+專案位置：E:\gitHub\txtToSQL
+GitHub 儲存庫：https://github.com/golfamigo/text2SQL_LineBot
+
+檔案結構
+
+根目錄：存放原始 SQL 檔案（作為來源檔案編輯）
+supabase/migrations：存放帶有時間戳的遷移檔案（由setup-migrations.js生成）
+n8n_workflows：存放 n8n 工作流程 JSON 檔案
+
+工作習慣與流程
+
+修改 SQL 函數流程：
+
+直接編輯根目錄下的 SQL 檔案
+執行 node setup-migrations.js 產生遷移檔案
+執行 Git 指令提交：git add ., git commit -m "更新說明", git push
+
+
+常見問題
+
+SQL 函數參數類型：所有 UUID 類型參數需使用 ::uuid 明確轉換類型
+
+操作提醒
+
+修改 SQL 檔案後一定要執行 setup-migrations.js 腳本
+
+工具
+
+setup-migrations.js：將 SQL 檔案複製到遷移目錄並添加時間戳並自動部署至 Supabase 資料庫
+
+修改.sql的database function後要一併檢查以下兩個檔案
+- "預約及服務管理時段管理的AI_Prompt.txt"(這是給預約及服務管理的ai agent system prompt)
+- "員工管理AI_Prompt.txt"(這是給員工管理的ai agent system prompt)
+
+專案的相關database table可以使用MCP去查看
+
+維持此指南隨專案發展持續更新。

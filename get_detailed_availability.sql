@@ -1,3 +1,5 @@
+DROP FUNCTION IF EXISTS get_detailed_availability CASCADE;
+
 --- START OF FILE get_detailed_availability.sql ---
 -- 函數功能：查詢特定日期和時段的詳細預約情況，包括時段名稱、開始時間、結束時間、最大容量、已預訂名額、剩餘名額、預約列表和服務限制
 -- 參數:

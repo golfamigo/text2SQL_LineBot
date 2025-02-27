@@ -2,7 +2,7 @@
 -- 先刪除現有函數
 DROP FUNCTION IF EXISTS get_staff_availability_by_date CASCADE;
 
--- 函數功能：獲取員工在特定日期的可用時間
+-- 函數功能：獲取員工在特定日期的可用時間。
 -- 參數:
 --   p_staff_id UUID: 員工 ID
 --   p_date DATE: 查詢日期

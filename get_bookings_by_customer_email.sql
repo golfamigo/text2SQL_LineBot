@@ -1,3 +1,5 @@
+DROP FUNCTION IF EXISTS get_bookings_by_customer_email CASCADE;
+
 --- START OF FILE get_bookings_by_customer_email.sql ---
 -- 函數功能：根據顧客 Email 查詢預約
 -- 參數:

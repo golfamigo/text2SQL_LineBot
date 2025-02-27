@@ -1,3 +1,5 @@
+DROP FUNCTION IF EXISTS create_period CASCADE;
+
 --- START OF FILE create_period.sql ---
 -- 函數功能：創建新的時段
 -- 參數:

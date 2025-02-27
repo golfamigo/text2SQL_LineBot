@@ -1,3 +1,5 @@
+DROP FUNCTION IF EXISTS get_all_services CASCADE;
+
 --- START OF FILE get_all_services.sql ---
 CREATE OR REPLACE FUNCTION get_all_services(
     p_business_id uuid,

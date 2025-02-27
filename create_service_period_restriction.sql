@@ -9,7 +9,7 @@
 -- 返回值:
 --   JSON: 包含操作結果，包括 success (boolean), restriction_id (uuid), message (text), service_name (text)
 -- 先刪除現有函數
-DROP FUNCTION IF EXISTS create_service_period_restriction(uuid, uuid, boolean);
+DROP FUNCTION IF EXISTS create_service_period_restriction CASCADE;
 
 CREATE OR REPLACE FUNCTION create_service_period_restriction(
     p_business_id uuid,
@@ -25,7 +25,7 @@ DECLARE
 BEGIN
     -- 查找服務 ID
     SELECT service_id, matched_name 
-    FROM find_service(p_business_id => p_business_name, p_service_name => p_service_name)
+    FROM find_service(p_business_id => p_business_id, p_service_name => p_service_name)
     INTO v_service_id, v_matched_name;
 
     IF v_service_id IS NULL THEN

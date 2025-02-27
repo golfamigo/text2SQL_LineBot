@@ -1,3 +1,5 @@
+DROP FUNCTION IF EXISTS delete_period CASCADE;
+
 --- START OF FILE delete_period.sql ---
 -- 函數功能：軟刪除時段
 -- 參數:

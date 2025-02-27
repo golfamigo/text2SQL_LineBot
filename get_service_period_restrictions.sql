@@ -7,7 +7,7 @@
 -- 返回值:
 --   TABLE: 包含服務時段限制資訊的表格
 -- 先刪除現有函數
-DROP FUNCTION IF EXISTS get_service_period_restrictions(uuid);
+
 
 CREATE OR REPLACE FUNCTION get_service_period_restrictions(
     p_business_id uuid,
@@ -31,7 +31,7 @@ DECLARE
 BEGIN
     -- 查找服務 ID
      SELECT service_id, matched_name
-     from find_service(p_business_id => p_business_name, p_service_name => p_service_name)
+     from find_service(p_business_id => p_business_id, p_service_name => p_service_name)
      INTO v_service_id, matched_service_name;
 
     IF v_service_id IS NULL THEN
@@ -72,7 +72,7 @@ BEGIN
         r.created_at,
         r.updated_at,
         COALESCE(fb.has_bookings, false) as has_future_bookings,
-        v_matched_name as matched_service_name
+        matched_service_name as matched_service_name
     FROM n8n_booking_time_periods tp
     LEFT JOIN n8n_booking_service_period_restrictions r 
         ON r.period_id = tp.id 

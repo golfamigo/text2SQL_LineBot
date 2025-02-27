@@ -1,651 +1,602 @@
 [
   {
+    "table_name": "n8n_booking_activity_logs",
+    "column_name": "id",
+    "data_type": "uuid"
+  },
+  {
+    "table_name": "n8n_booking_activity_logs",
+    "column_name": "created_at",
+    "data_type": "timestamp with time zone"
+  },
+  {
+    "table_name": "n8n_booking_activity_logs",
+    "column_name": "user_id",
+    "data_type": "uuid"
+  },
+  {
+    "table_name": "n8n_booking_activity_logs",
+    "column_name": "action",
+    "data_type": "USER-DEFINED"
+  },
+  {
+    "table_name": "n8n_booking_activity_logs",
+    "column_name": "action_details",
+    "data_type": "jsonb"
+  },
+  {
+    "table_name": "n8n_booking_activity_logs",
+    "column_name": "ip_address",
+    "data_type": "text"
+  },
+  {
+    "table_name": "n8n_booking_activity_logs",
+    "column_name": "user_agent",
+    "data_type": "text"
+  },
+  {
     "table_name": "n8n_booking_bookings",
     "column_name": "id",
-    "data_type": "uuid",
-    "is_nullable": "NO",
-    "column_default": "uuid_generate_v4()",
-    "is_primary_key": "YES",
-    "is_unique": "NO",
-    "is_foreign_key": "NO",
-    "ordinal_position": 1
+    "data_type": "uuid"
   },
   {
     "table_name": "n8n_booking_bookings",
     "column_name": "booking_created_at",
-    "data_type": "timestamp with time zone",
-    "is_nullable": "YES",
-    "column_default": "(now() AT TIME ZONE 'utc'::text)",
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "NO",
-    "ordinal_position": 2
+    "data_type": "timestamp with time zone"
   },
   {
     "table_name": "n8n_booking_bookings",
     "column_name": "updated_at",
-    "data_type": "timestamp with time zone",
-    "is_nullable": "YES",
-    "column_default": "now()",
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "NO",
-    "ordinal_position": 3
+    "data_type": "timestamp with time zone"
   },
   {
     "table_name": "n8n_booking_bookings",
     "column_name": "business_id",
-    "data_type": "uuid",
-    "is_nullable": "YES",
-    "column_default": null,
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "YES",
-    "ordinal_position": 4
+    "data_type": "uuid"
   },
   {
     "table_name": "n8n_booking_bookings",
     "column_name": "service_id",
-    "data_type": "uuid",
-    "is_nullable": "YES",
-    "column_default": null,
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "YES",
-    "ordinal_position": 5
+    "data_type": "uuid"
   },
   {
     "table_name": "n8n_booking_bookings",
     "column_name": "user_id",
-    "data_type": "uuid",
-    "is_nullable": "YES",
-    "column_default": null,
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "YES",
-    "ordinal_position": 7
+    "data_type": "uuid"
   },
   {
     "table_name": "n8n_booking_bookings",
     "column_name": "customer_name",
-    "data_type": "text",
-    "is_nullable": "NO",
-    "column_default": null,
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "NO",
-    "ordinal_position": 8
+    "data_type": "text"
   },
   {
     "table_name": "n8n_booking_bookings",
     "column_name": "customer_email",
-    "data_type": "text",
-    "is_nullable": "NO",
-    "column_default": null,
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "NO",
-    "ordinal_position": 9
+    "data_type": "text"
   },
   {
     "table_name": "n8n_booking_bookings",
     "column_name": "customer_phone",
-    "data_type": "text",
-    "is_nullable": "YES",
-    "column_default": null,
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "NO",
-    "ordinal_position": 10
+    "data_type": "text"
   },
   {
     "table_name": "n8n_booking_bookings",
     "column_name": "status",
-    "data_type": "text",
-    "is_nullable": "YES",
-    "column_default": "'pending'::text",
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "NO",
-    "ordinal_position": 11
+    "data_type": "text"
   },
   {
     "table_name": "n8n_booking_bookings",
     "column_name": "notes",
-    "data_type": "text",
-    "is_nullable": "YES",
-    "column_default": null,
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "NO",
-    "ordinal_position": 12
+    "data_type": "text"
   },
   {
     "table_name": "n8n_booking_bookings",
     "column_name": "notification_status",
-    "data_type": "jsonb",
-    "is_nullable": "YES",
-    "column_default": "'{}'::jsonb",
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "NO",
-    "ordinal_position": 13
+    "data_type": "jsonb"
   },
   {
     "table_name": "n8n_booking_bookings",
     "column_name": "period_id",
-    "data_type": "uuid",
-    "is_nullable": "YES",
-    "column_default": null,
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "YES",
-    "ordinal_position": 14
+    "data_type": "uuid"
   },
   {
     "table_name": "n8n_booking_bookings",
     "column_name": "line_user_id",
-    "data_type": "text",
-    "is_nullable": "YES",
-    "column_default": null,
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "NO",
-    "ordinal_position": 15
+    "data_type": "text"
   },
   {
     "table_name": "n8n_booking_bookings",
     "column_name": "booking_date",
-    "data_type": "date",
-    "is_nullable": "YES",
-    "column_default": null,
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "NO",
-    "ordinal_position": 16
+    "data_type": "date"
   },
   {
     "table_name": "n8n_booking_bookings",
     "column_name": "customer_notes",
-    "data_type": "text",
-    "is_nullable": "YES",
-    "column_default": null,
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "NO",
-    "ordinal_position": 17
+    "data_type": "text"
   },
   {
     "table_name": "n8n_booking_bookings",
     "column_name": "number_of_people",
-    "data_type": "integer",
-    "is_nullable": "NO",
-    "column_default": "1",
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "NO",
-    "ordinal_position": 18
+    "data_type": "integer"
   },
   {
     "table_name": "n8n_booking_bookings",
     "column_name": "booking_start_time",
-    "data_type": "timestamp with time zone",
-    "is_nullable": "NO",
-    "column_default": null,
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "NO",
-    "ordinal_position": 19
+    "data_type": "timestamp with time zone"
   },
   {
     "table_name": "n8n_booking_bookings",
     "column_name": "booking_duration",
-    "data_type": "interval",
-    "is_nullable": "NO",
-    "column_default": "'01:00:00'::interval",
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "NO",
-    "ordinal_position": 20
+    "data_type": "interval"
+  },
+  {
+    "table_name": "n8n_booking_bookings",
+    "column_name": "staff_id",
+    "data_type": "uuid"
   },
   {
     "table_name": "n8n_booking_businesses",
     "column_name": "id",
-    "data_type": "uuid",
-    "is_nullable": "NO",
-    "column_default": "uuid_generate_v4()",
-    "is_primary_key": "YES",
-    "is_unique": "NO",
-    "is_foreign_key": "NO",
-    "ordinal_position": 1
+    "data_type": "uuid"
   },
   {
     "table_name": "n8n_booking_businesses",
     "column_name": "created_at",
-    "data_type": "timestamp with time zone",
-    "is_nullable": "YES",
-    "column_default": "now()",
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "NO",
-    "ordinal_position": 2
+    "data_type": "timestamp with time zone"
   },
   {
     "table_name": "n8n_booking_businesses",
     "column_name": "updated_at",
-    "data_type": "timestamp with time zone",
-    "is_nullable": "YES",
-    "column_default": "now()",
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "NO",
-    "ordinal_position": 3
+    "data_type": "timestamp with time zone"
   },
   {
     "table_name": "n8n_booking_businesses",
     "column_name": "name",
-    "data_type": "text",
-    "is_nullable": "NO",
-    "column_default": null,
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "NO",
-    "ordinal_position": 4
+    "data_type": "text"
   },
   {
     "table_name": "n8n_booking_businesses",
     "column_name": "description",
-    "data_type": "text",
-    "is_nullable": "YES",
-    "column_default": null,
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "NO",
-    "ordinal_position": 5
+    "data_type": "text"
   },
   {
     "table_name": "n8n_booking_businesses",
     "column_name": "contact_email",
-    "data_type": "text",
-    "is_nullable": "YES",
-    "column_default": null,
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "NO",
-    "ordinal_position": 6
+    "data_type": "text"
   },
   {
     "table_name": "n8n_booking_businesses",
     "column_name": "contact_phone",
-    "data_type": "text",
-    "is_nullable": "YES",
-    "column_default": null,
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "NO",
-    "ordinal_position": 7
+    "data_type": "text"
   },
   {
     "table_name": "n8n_booking_businesses",
     "column_name": "address",
-    "data_type": "text",
-    "is_nullable": "YES",
-    "column_default": null,
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "NO",
-    "ordinal_position": 8
+    "data_type": "text"
   },
   {
     "table_name": "n8n_booking_businesses",
     "column_name": "business_hours",
-    "data_type": "jsonb",
-    "is_nullable": "YES",
-    "column_default": null,
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "NO",
-    "ordinal_position": 9
+    "data_type": "jsonb"
   },
   {
     "table_name": "n8n_booking_businesses",
     "column_name": "subscription_status",
-    "data_type": "text",
-    "is_nullable": "YES",
-    "column_default": "'trial'::text",
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "NO",
-    "ordinal_position": 10
+    "data_type": "text"
   },
   {
     "table_name": "n8n_booking_businesses",
     "column_name": "subscription_end_date",
-    "data_type": "timestamp with time zone",
-    "is_nullable": "YES",
-    "column_default": null,
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "NO",
-    "ordinal_position": 11
+    "data_type": "timestamp with time zone"
   },
   {
     "table_name": "n8n_booking_businesses",
     "column_name": "owner_id",
-    "data_type": "uuid",
-    "is_nullable": "YES",
-    "column_default": null,
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "YES",
-    "ordinal_position": 12
+    "data_type": "uuid"
   },
   {
     "table_name": "n8n_booking_businesses",
     "column_name": "settings",
-    "data_type": "jsonb",
-    "is_nullable": "YES",
-    "column_default": "'{}'::jsonb",
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "NO",
-    "ordinal_position": 13
+    "data_type": "jsonb"
   },
   {
     "table_name": "n8n_booking_businesses",
     "column_name": "linebot_destination",
-    "data_type": "text",
-    "is_nullable": "YES",
-    "column_default": null,
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "NO",
-    "ordinal_position": 14
+    "data_type": "text"
+  },
+  {
+    "table_name": "n8n_booking_businesses",
+    "column_name": "timezone",
+    "data_type": "text"
+  },
+  {
+    "table_name": "n8n_booking_businesses",
+    "column_name": "min_booking_lead_time",
+    "data_type": "interval"
+  },
+  {
+    "table_name": "n8n_booking_function_logs",
+    "column_name": "id",
+    "data_type": "uuid"
+  },
+  {
+    "table_name": "n8n_booking_function_logs",
+    "column_name": "function_name",
+    "data_type": "text"
+  },
+  {
+    "table_name": "n8n_booking_function_logs",
+    "column_name": "parameters",
+    "data_type": "jsonb"
+  },
+  {
+    "table_name": "n8n_booking_function_logs",
+    "column_name": "executed_at",
+    "data_type": "timestamp with time zone"
+  },
+  {
+    "table_name": "n8n_booking_function_logs",
+    "column_name": "executed_by",
+    "data_type": "text"
   },
   {
     "table_name": "n8n_booking_history",
     "column_name": "id",
-    "data_type": "uuid",
-    "is_nullable": "NO",
-    "column_default": "uuid_generate_v4()",
-    "is_primary_key": "YES",
-    "is_unique": "NO",
-    "is_foreign_key": "NO",
-    "ordinal_position": 1
+    "data_type": "uuid"
   },
   {
     "table_name": "n8n_booking_history",
     "column_name": "created_at",
-    "data_type": "timestamp with time zone",
-    "is_nullable": "YES",
-    "column_default": "now()",
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "NO",
-    "ordinal_position": 2
+    "data_type": "timestamp with time zone"
   },
   {
     "table_name": "n8n_booking_history",
     "column_name": "booking_id",
-    "data_type": "uuid",
-    "is_nullable": "YES",
-    "column_default": null,
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "YES",
-    "ordinal_position": 3
+    "data_type": "uuid"
   },
   {
     "table_name": "n8n_booking_history",
     "column_name": "previous_status",
-    "data_type": "text",
-    "is_nullable": "YES",
-    "column_default": null,
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "NO",
-    "ordinal_position": 4
+    "data_type": "text"
   },
   {
     "table_name": "n8n_booking_history",
     "column_name": "new_status",
-    "data_type": "text",
-    "is_nullable": "YES",
-    "column_default": null,
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "NO",
-    "ordinal_position": 5
+    "data_type": "text"
   },
   {
     "table_name": "n8n_booking_history",
     "column_name": "changed_by",
-    "data_type": "uuid",
-    "is_nullable": "YES",
-    "column_default": null,
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "YES",
-    "ordinal_position": 6
+    "data_type": "uuid"
   },
   {
     "table_name": "n8n_booking_history",
     "column_name": "reason",
-    "data_type": "text",
-    "is_nullable": "YES",
-    "column_default": null,
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "NO",
-    "ordinal_position": 7
+    "data_type": "text"
+  },
+  {
+    "table_name": "n8n_booking_service_period_restrictions",
+    "column_name": "id",
+    "data_type": "uuid"
+  },
+  {
+    "table_name": "n8n_booking_service_period_restrictions",
+    "column_name": "service_id",
+    "data_type": "uuid"
+  },
+  {
+    "table_name": "n8n_booking_service_period_restrictions",
+    "column_name": "period_id",
+    "data_type": "uuid"
+  },
+  {
+    "table_name": "n8n_booking_service_period_restrictions",
+    "column_name": "is_allowed",
+    "data_type": "boolean"
+  },
+  {
+    "table_name": "n8n_booking_service_period_restrictions",
+    "column_name": "created_at",
+    "data_type": "timestamp with time zone"
+  },
+  {
+    "table_name": "n8n_booking_service_period_restrictions",
+    "column_name": "updated_at",
+    "data_type": "timestamp with time zone"
   },
   {
     "table_name": "n8n_booking_services",
     "column_name": "id",
-    "data_type": "uuid",
-    "is_nullable": "NO",
-    "column_default": "uuid_generate_v4()",
-    "is_primary_key": "YES",
-    "is_unique": "NO",
-    "is_foreign_key": "NO",
-    "ordinal_position": 1
+    "data_type": "uuid"
   },
   {
     "table_name": "n8n_booking_services",
     "column_name": "created_at",
-    "data_type": "timestamp with time zone",
-    "is_nullable": "YES",
-    "column_default": "now()",
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "NO",
-    "ordinal_position": 2
+    "data_type": "timestamp with time zone"
   },
   {
     "table_name": "n8n_booking_services",
     "column_name": "business_id",
-    "data_type": "uuid",
-    "is_nullable": "YES",
-    "column_default": null,
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "YES",
-    "ordinal_position": 3
+    "data_type": "uuid"
   },
   {
     "table_name": "n8n_booking_services",
     "column_name": "name",
-    "data_type": "text",
-    "is_nullable": "NO",
-    "column_default": null,
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "NO",
-    "ordinal_position": 4
+    "data_type": "text"
   },
   {
     "table_name": "n8n_booking_services",
     "column_name": "description",
-    "data_type": "text",
-    "is_nullable": "YES",
-    "column_default": null,
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "NO",
-    "ordinal_position": 5
+    "data_type": "text"
   },
   {
     "table_name": "n8n_booking_services",
     "column_name": "duration",
-    "data_type": "integer",
-    "is_nullable": "NO",
-    "column_default": null,
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "NO",
-    "ordinal_position": 6
+    "data_type": "integer"
   },
   {
     "table_name": "n8n_booking_services",
     "column_name": "price",
-    "data_type": "numeric",
-    "is_nullable": "YES",
-    "column_default": null,
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "NO",
-    "ordinal_position": 7
+    "data_type": "numeric"
   },
   {
     "table_name": "n8n_booking_services",
     "column_name": "max_capacity",
-    "data_type": "integer",
-    "is_nullable": "YES",
-    "column_default": "1",
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "NO",
-    "ordinal_position": 8
+    "data_type": "integer"
   },
   {
     "table_name": "n8n_booking_services",
     "column_name": "is_active",
-    "data_type": "boolean",
-    "is_nullable": "YES",
-    "column_default": "true",
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "NO",
-    "ordinal_position": 9
+    "data_type": "boolean"
   },
   {
     "table_name": "n8n_booking_services",
     "column_name": "business_hours_override_id",
-    "data_type": "uuid",
-    "is_nullable": "YES",
-    "column_default": null,
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "YES",
-    "ordinal_position": 11
+    "data_type": "uuid"
   },
   {
     "table_name": "n8n_booking_services",
     "column_name": "image_url",
-    "data_type": "text",
-    "is_nullable": "YES",
-    "column_default": null,
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "NO",
-    "ordinal_position": 12
+    "data_type": "text"
   },
   {
     "table_name": "n8n_booking_services",
     "column_name": "updated_at",
-    "data_type": "timestamp with time zone",
-    "is_nullable": "YES",
-    "column_default": null,
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "NO",
-    "ordinal_position": 13
+    "data_type": "timestamp with time zone"
+  },
+  {
+    "table_name": "n8n_booking_services",
+    "column_name": "min_booking_lead_time",
+    "data_type": "interval"
+  },
+  {
+    "table_name": "n8n_booking_staff_availability",
+    "column_name": "id",
+    "data_type": "uuid"
+  },
+  {
+    "table_name": "n8n_booking_staff_availability",
+    "column_name": "created_at",
+    "data_type": "timestamp with time zone"
+  },
+  {
+    "table_name": "n8n_booking_staff_availability",
+    "column_name": "updated_at",
+    "data_type": "timestamp with time zone"
+  },
+  {
+    "table_name": "n8n_booking_staff_availability",
+    "column_name": "staff_id",
+    "data_type": "uuid"
+  },
+  {
+    "table_name": "n8n_booking_staff_availability",
+    "column_name": "day_of_week",
+    "data_type": "integer"
+  },
+  {
+    "table_name": "n8n_booking_staff_availability",
+    "column_name": "start_time",
+    "data_type": "time without time zone"
+  },
+  {
+    "table_name": "n8n_booking_staff_availability",
+    "column_name": "end_time",
+    "data_type": "time without time zone"
+  },
+  {
+    "table_name": "n8n_booking_staff_availability",
+    "column_name": "is_recurring",
+    "data_type": "boolean"
+  },
+  {
+    "table_name": "n8n_booking_staff_availability",
+    "column_name": "specific_date",
+    "data_type": "date"
+  },
+  {
+    "table_name": "n8n_booking_staff_availability",
+    "column_name": "availability_type",
+    "data_type": "USER-DEFINED"
+  },
+  {
+    "table_name": "n8n_booking_staff_availability",
+    "column_name": "business_id",
+    "data_type": "uuid"
+  },
+  {
+    "table_name": "n8n_booking_staff_availability",
+    "column_name": "notes",
+    "data_type": "text"
+  },
+  {
+    "table_name": "n8n_booking_staff_services",
+    "column_name": "id",
+    "data_type": "uuid"
+  },
+  {
+    "table_name": "n8n_booking_staff_services",
+    "column_name": "created_at",
+    "data_type": "timestamp with time zone"
+  },
+  {
+    "table_name": "n8n_booking_staff_services",
+    "column_name": "staff_id",
+    "data_type": "uuid"
+  },
+  {
+    "table_name": "n8n_booking_staff_services",
+    "column_name": "service_id",
+    "data_type": "uuid"
+  },
+  {
+    "table_name": "n8n_booking_staff_services",
+    "column_name": "is_primary",
+    "data_type": "boolean"
+  },
+  {
+    "table_name": "n8n_booking_staff_services",
+    "column_name": "proficiency_level",
+    "data_type": "integer"
+  },
+  {
+    "table_name": "n8n_booking_staff_services",
+    "column_name": "notes",
+    "data_type": "text"
   },
   {
     "table_name": "n8n_booking_time_periods",
     "column_name": "id",
-    "data_type": "uuid",
-    "is_nullable": "NO",
-    "column_default": "uuid_generate_v4()",
-    "is_primary_key": "YES",
-    "is_unique": "NO",
-    "is_foreign_key": "NO",
-    "ordinal_position": 1
+    "data_type": "uuid"
   },
   {
     "table_name": "n8n_booking_time_periods",
     "column_name": "business_id",
-    "data_type": "uuid",
-    "is_nullable": "YES",
-    "column_default": null,
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "YES",
-    "ordinal_position": 2
+    "data_type": "uuid"
   },
   {
     "table_name": "n8n_booking_time_periods",
     "column_name": "name",
-    "data_type": "text",
-    "is_nullable": "NO",
-    "column_default": null,
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "NO",
-    "ordinal_position": 3
+    "data_type": "text"
   },
   {
     "table_name": "n8n_booking_time_periods",
     "column_name": "start_time",
-    "data_type": "time without time zone",
-    "is_nullable": "YES",
-    "column_default": null,
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "NO",
-    "ordinal_position": 4
+    "data_type": "time without time zone"
   },
   {
     "table_name": "n8n_booking_time_periods",
     "column_name": "end_time",
-    "data_type": "time without time zone",
-    "is_nullable": "YES",
-    "column_default": null,
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "NO",
-    "ordinal_position": 5
+    "data_type": "time without time zone"
   },
   {
     "table_name": "n8n_booking_time_periods",
     "column_name": "max_capacity",
-    "data_type": "integer",
-    "is_nullable": "YES",
-    "column_default": null,
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "NO",
-    "ordinal_position": 6
+    "data_type": "integer"
   },
   {
     "table_name": "n8n_booking_time_periods",
     "column_name": "is_active",
-    "data_type": "boolean",
-    "is_nullable": "YES",
-    "column_default": "true",
-    "is_primary_key": "NO",
-    "is_unique": "NO",
-    "is_foreign_key": "NO",
-    "ordinal_position": 7
+    "data_type": "boolean"
+  },
+  {
+    "table_name": "n8n_booking_time_periods",
+    "column_name": "start_minutes",
+    "data_type": "integer"
+  },
+  {
+    "table_name": "n8n_booking_time_periods",
+    "column_name": "end_minutes",
+    "data_type": "integer"
+  },
+  {
+    "table_name": "n8n_booking_users",
+    "column_name": "id",
+    "data_type": "uuid"
+  },
+  {
+    "table_name": "n8n_booking_users",
+    "column_name": "created_at",
+    "data_type": "timestamp with time zone"
+  },
+  {
+    "table_name": "n8n_booking_users",
+    "column_name": "updated_at",
+    "data_type": "timestamp with time zone"
+  },
+  {
+    "table_name": "n8n_booking_users",
+    "column_name": "role",
+    "data_type": "USER-DEFINED"
+  },
+  {
+    "table_name": "n8n_booking_users",
+    "column_name": "business_id",
+    "data_type": "uuid"
+  },
+  {
+    "table_name": "n8n_booking_users",
+    "column_name": "name",
+    "data_type": "text"
+  },
+  {
+    "table_name": "n8n_booking_users",
+    "column_name": "email",
+    "data_type": "text"
+  },
+  {
+    "table_name": "n8n_booking_users",
+    "column_name": "phone",
+    "data_type": "text"
+  },
+  {
+    "table_name": "n8n_booking_users",
+    "column_name": "line_user_id",
+    "data_type": "text"
+  },
+  {
+    "table_name": "n8n_booking_users",
+    "column_name": "password_hash",
+    "data_type": "text"
+  },
+  {
+    "table_name": "n8n_booking_users",
+    "column_name": "is_active",
+    "data_type": "boolean"
+  },
+  {
+    "table_name": "n8n_booking_users",
+    "column_name": "notes",
+    "data_type": "text"
+  },
+  {
+    "table_name": "n8n_booking_users",
+    "column_name": "last_login",
+    "data_type": "timestamp with time zone"
+  },
+  {
+    "table_name": "n8n_booking_users",
+    "column_name": "settings",
+    "data_type": "jsonb"
+  },
+  {
+    "table_name": "n8n_vectors_vousaimer",
+    "column_name": "id",
+    "data_type": "uuid"
+  },
+  {
+    "table_name": "n8n_vectors_vousaimer",
+    "column_name": "text",
+    "data_type": "text"
+  },
+  {
+    "table_name": "n8n_vectors_vousaimer",
+    "column_name": "metadata",
+    "data_type": "jsonb"
+  },
+  {
+    "table_name": "n8n_vectors_vousaimer",
+    "column_name": "embedding",
+    "data_type": "USER-DEFINED"
   }
 ]

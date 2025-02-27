@@ -15,7 +15,7 @@
 -- 返回值:
 --   JSON: 包含操作結果，包括 success (boolean), service_id (uuid), message (text)
 -- 先刪除現有函數
-DROP FUNCTION IF EXISTS update_service(uuid, uuid, text, text, text, integer, numeric, integer, interval, boolean);
+DROP FUNCTION IF EXISTS update_service CASCADE;
 
 CREATE OR REPLACE FUNCTION update_service(
     p_business_id uuid,
@@ -39,7 +39,7 @@ BEGIN
     -- 優先使用 service_name 查找 service_id
     IF p_service_name IS NOT NULL THEN
         SELECT service_id
-        FROM find_service(p_business_id => p_business_name, p_service_name => p_service_name)
+        FROM find_service(p_business_id => p_business_id, p_service_name => p_service_name)
         INTO v_service_id_to_use;
 
     IF v_service_id_to_use IS NULL THEN

@@ -1,3 +1,5 @@
+DROP FUNCTION IF EXISTS get_period_availability_with_staff CASCADE;
+
 --- START OF FILE get_period_availability_with_staff.sql ---
 -- 查詢特定服務在特定日期的可用時段和可用員工
 -- 函數功能：查詢特定服務在特定日期的可用時段和可用員工
@@ -25,7 +27,7 @@ DECLARE
     v_service_duration INTEGER;
 BEGIN
     -- 查找服務 ID
-    SELECT * FROM find_service(p_business_id => p_business_name, p_service_name => p_service_name)
+    SELECT * FROM find_service(p_business_id => p_business_id, p_service_name => p_service_name)
     INTO v_service_id, v_matched_name;
 
     IF v_service_id IS NULL THEN

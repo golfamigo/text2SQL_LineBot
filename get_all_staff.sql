@@ -7,7 +7,7 @@ DROP FUNCTION IF EXISTS get_all_staff CASCADE;
 --   p_include_inactive BOOLEAN (optional, default: false): 是否包含非活躍員工
 -- 返回值:
 --   TABLE: 包含員工資訊的表格，欄位包括 id, name, email, phone, line_user_id, is_active, notes, created_at
--- 獲取所有員工
+-- 獲取所有員工。
 CREATE OR REPLACE FUNCTION get_all_staff(
     p_business_id UUID,
     p_include_inactive BOOLEAN DEFAULT false

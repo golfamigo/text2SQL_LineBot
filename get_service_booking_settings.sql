@@ -1,3 +1,5 @@
+DROP FUNCTION IF EXISTS get_service_booking_settings CASCADE;
+
 --- START OF FILE get_service_booking_settings.sql ---
 -- 函數功能：獲取服務預約設定
 -- 參數:

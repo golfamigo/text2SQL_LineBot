@@ -1,6 +1,5 @@
 -- 刪除服務 (使用服務名稱)
--- 先刪除現有函數
-DROP FUNCTION IF EXISTS delete_service(uuid);
+DROP FUNCTION IF EXISTS delete_service CASCADE;
 
 CREATE OR REPLACE FUNCTION delete_service(
     p_business_id uuid,

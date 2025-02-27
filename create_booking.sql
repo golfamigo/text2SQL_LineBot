@@ -1,3 +1,5 @@
+DROP FUNCTION IF EXISTS create_booking CASCADE;
+
 --- START OF FILE create_booking.sql ---
 -- 函數功能：創建新的預約
 -- 參數:
@@ -38,7 +40,7 @@ DECLARE
     v_min_lead_time interval;
 BEGIN
     -- 先查找服務
-    SELECT * FROM find_service(p_business_id => p_business_name, p_service_name => p_service_name)
+    SELECT * FROM find_service(p_business_id => p_business_id, p_service_name => p_service_name)
     INTO v_service_id, v_matched_name;
 
     IF v_service_id IS NULL THEN

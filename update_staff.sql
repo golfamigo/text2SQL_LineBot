@@ -1,3 +1,5 @@
+DROP FUNCTION IF EXISTS update_staff CASCADE;
+
 --- START OF FILE update_staff.sql ---
 -- 更新員工信息
 -- 函數功能：更新員工信息

@@ -1,3 +1,5 @@
+DROP FUNCTION IF EXISTS get_bookings_by_customer_phone CASCADE;
+
 --- START OF FILE get_bookings_by_customer_phone.sql ---
 -- 函數功能：根據顧客電話號碼查詢預約
 -- 參數:

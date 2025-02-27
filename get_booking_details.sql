@@ -1,3 +1,5 @@
+DROP FUNCTION IF EXISTS get_booking_details CASCADE;
+
 --- START OF FILE get_booking_details.sql ---
 CREATE OR REPLACE FUNCTION get_booking_details(
     p_booking_id uuid

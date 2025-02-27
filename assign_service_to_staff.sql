@@ -20,10 +20,12 @@ CREATE OR REPLACE FUNCTION assign_service_to_staff(
 DECLARE
     v_service_id UUID;
     v_matched_name TEXT;
+    v_similarity_score REAL;
 BEGIN
     -- 查找服務 ID
     SELECT * FROM find_service(p_business_id => p_business_id, p_service_name => p_service_name)
-    INTO v_service_id, v_matched_name;
+    INTO v_service_id, v_matched_name, v_similarity_score;
+    
 
     IF v_service_id IS NULL THEN
         RETURN json_build_object(

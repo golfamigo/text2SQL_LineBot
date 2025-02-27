@@ -37,7 +37,7 @@ DECLARE
     v_valid_dates date[] := ARRAY[]::date[];
 BEGIN
     -- 使用 find_service 函數
-    SELECT * FROM find_service(p_business_id => p_business_name, p_service_name => p_service_name)
+    SELECT * FROM find_service(p_business_id => p_business_id, p_service_name => p_service_name)
     INTO v_service_id, v_matched_name;
 
     IF v_service_id IS NULL THEN

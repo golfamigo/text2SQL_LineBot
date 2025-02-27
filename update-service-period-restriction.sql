@@ -1,3 +1,5 @@
+DROP FUNCTION IF EXISTS update_service_period_restriction CASCADE;
+
 --- START OF FILE update-service-period-restriction.sql ---
 -- 函數功能：更新服務時段限制
 -- 參數:

@@ -1,3 +1,5 @@
+DROP FUNCTION IF EXISTS update_period CASCADE;
+
 --- START OF FILE update_period.sql ---
 -- 函數功能：更新時段信息
 -- 參數:

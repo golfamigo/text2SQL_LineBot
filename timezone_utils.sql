@@ -1,3 +1,5 @@
+DROP FUNCTION IF EXISTS convert_timezone CASCADE;
+
 --- START OF FILE timezone_utils.sql ---
 CREATE OR REPLACE FUNCTION convert_timezone(
     p_timestamp timestamp with time zone,
@@ -9,6 +11,8 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 -- 時區轉換函數
+DROP FUNCTION IF EXISTS convert_timezone CASCADE;
+
 -- 函數功能：轉換時區
 -- 參數:
 --   p_timestamp timestamp with time zone: 帶時區的時間戳
@@ -27,6 +31,8 @@ END;
 $$ LANGUAGE plpgsql;
 
 -- 分鐘轉換函數
+DROP FUNCTION IF EXISTS time_to_minutes CASCADE;
+
 -- 函數功能：將 time 類型轉換為分鐘數
 -- 參數:
 --   p_time time: 時間
@@ -39,6 +45,8 @@ END;
 $$ LANGUAGE plpgsql;
 
 -- 分鐘轉回時間函數
+DROP FUNCTION IF EXISTS minutes_to_time CASCADE;
+
 -- 函數功能：將分鐘數轉換回 time 類型
 -- 參數:
 --   p_minutes integer: 分鐘數

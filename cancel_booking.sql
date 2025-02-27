@@ -1,3 +1,5 @@
+DROP FUNCTION IF EXISTS cancel_booking CASCADE;
+
 --- START OF FILE cancel_booking.sql ---
 CREATE OR REPLACE FUNCTION cancel_booking(
     p_booking_id uuid

@@ -1,7 +1,7 @@
 --- START OF FILE set_staff_availability.sql ---
 -- 先刪除現有函數
 DROP FUNCTION IF EXISTS set_staff_availability CASCADE;
--- 函數功能：設置員工可用時間
+-- 函數功能：設置員工可用時間。
 -- 參數:
 --   p_staff_id UUID: 員工 ID
 --   p_business_id UUID: 商家 ID
